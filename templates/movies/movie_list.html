@@ -24,6 +24,7 @@
     </div>
   </div>
 
+<<<<<<< HEAD
   <!-- Swiper Container -->
   <div class="swiper mySwiper" id="movieSwiper">
     <div class="swiper-wrapper">
@@ -83,6 +84,55 @@
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
 />
+=======
+  <swiper-container class="mySwiper" slides-per-view="4" space-between="10" pagination="true" pagination-dynamic-bullets="true" navigation="true">
+    {% for movie in movies %}
+    <swiper-slide>
+      <div class="card h-100 shadow-sm">
+        <img
+          src="{{ movie.image.url }}"
+          class="card-img-top"
+          alt="{{ movie.name }}"
+          style="height: 300px; object-fit: cover"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ movie.name }}</h5>
+          <p class="card-text">
+            <i class="fas fa-star text-warning"></i> {{ movie.rating }}
+          </p>
+          <p class="card-text">
+            <small class="text-muted">
+              <i class="fas fa-users"></i> Cast: {{ movie.cast }}
+            </small>
+          </p>
+        </div>
+        <div class="card-footer bg-white border-top-0">
+          <a href="{% url 'theater_list' movie.id %}" class="btn btn-outline-primary btn-block">
+            View Theaters <i class="fas fa-chevron-right ml-2"></i>
+          </a>
+        </div>
+      </div>
+    </swiper-slide>
+    {% endfor %}
+  </swiper-container>
+
+  <!-- Pagination -->
+  <div class="pagination justify-content-center mt-4">
+    {% if movies.has_previous %}
+      <a class="btn btn-outline-primary" href="?page=1">First</a>
+      <a class="btn btn-outline-primary" href="?page={{ movies.previous_page_number }}">Previous</a>
+    {% endif %}
+    <span class="btn btn-primary disabled">Page {{ movies.number }} of {{ movies.paginator.num_pages }}</span>
+    {% if movies.has_next %}
+      <a class="btn btn-outline-primary" href="?page={{ movies.next_page_number }}">Next</a>
+      <a class="btn btn-outline-primary" href="?page={{ movies.paginator.num_pages }}">Last</a>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+>>>>>>> 03122cab3873c35578d0af7c4f502fa524c3987a
 
 <!-- Swiper Initialization -->
 <script>
@@ -131,6 +181,12 @@
     transform: translateY(-5px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
   }
+  .pagination .btn {
+    margin: 5px;
+  }
 </style>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 03122cab3873c35578d0af7c4f502fa524c3987a
 {% endblock %}

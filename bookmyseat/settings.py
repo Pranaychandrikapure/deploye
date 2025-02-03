@@ -1,23 +1,21 @@
 from pathlib import Path
 import os
 import dj_database_url
-# from django.conf import settings
-# import razorpay
 
-# client = razorpay.Client(auth=(settings.RAZORPAY_API_KEY, settings.RAZORPAY_API_SECRET))
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-%*ih34_#5wezfcq&@+a@a1xg)5b$5f1n6b=c3sta&#83%jtke2'
 
-# SECURITY WARNING: don't run with debug turned on in production!
+
 DEBUG = True
+<<<<<<< HEAD
 ALLOWED_HOSTS = []
+=======
+ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1']
+
+>>>>>>> 03122cab3873c35578d0af7c4f502fa524c3987a
 
 
 # Application definition
@@ -37,7 +35,7 @@ SITE_ID = 1
 PAYMENT_HOST = "http://127.0.0.1:8000"
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add this middleware
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -71,22 +69,19 @@ TEMPLATES = [
 WSGI_APPLICATION = 'bookmyseat.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.parse(
+        "postgresql://postgres:uHxydXAGVjfGesSejLQWacKXviEJUJLQ@roundhouse.proxy.rlwy.net:50985/railway",
+         conn_max_age=600,
+    )
 }
-DATABASES['default']=dj_database_url.parse('postgresql://komal_user:5WFlmzLLABlgnmJWjeZVUOv3WPGcQshq@dpg-cufreitds78s73fo4gu0-a.oregon-postgres.render.com/komal')
-#postgresql://komal_user:5WFlmzLLABlgnmJWjeZVUOv3WPGcQshq@dpg-cufreitds78s73fo4gu0-a.oregon-postgres.render.com/komal
 
 
 
-# Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
+
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
