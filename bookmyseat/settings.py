@@ -70,7 +70,7 @@ WSGI_APPLICATION = 'bookmyseat.wsgi.application'
 DATABASES = {
     'default': dj_database_url.parse(
         "postgresql://postgres:uHxydXAGVjfGesSejLQWacKXviEJUJLQ@roundhouse.proxy.rlwy.net:50985/railway",
-        conn_max_age=600,
+         conn_max_age=600,
     )
 }
 
