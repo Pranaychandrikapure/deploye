@@ -24,9 +24,9 @@
     </div>
   </div>
 
-  <div class="row" id="movieList">
+  <swiper-container class="mySwiper" slides-per-view="4" space-between="10" pagination="true" pagination-dynamic-bullets="true" navigation="true">
     {% for movie in movies %}
-    <div class="col-md-4 mb-4">
+    <swiper-slide>
       <div class="card h-100 shadow-sm">
         <img
           src="{{ movie.image.url }}"
@@ -46,33 +46,31 @@
           </p>
         </div>
         <div class="card-footer bg-white border-top-0">
-          <a
-            href="{% url 'theater_list' movie.id %}"
-            class="btn btn-outline-primary btn-block"
-          >
+          <a href="{% url 'theater_list' movie.id %}" class="btn btn-outline-primary btn-block">
             View Theaters <i class="fas fa-chevron-right ml-2"></i>
           </a>
         </div>
       </div>
-    </div>
-    {% empty %}
-    <div class="col-12 text-center">
-      <p class="lead">No movies found. Try a different search term.</p>
-    </div>
+    </swiper-slide>
     {% endfor %}
+  </swiper-container>
+
+  <!-- Pagination -->
+  <div class="pagination justify-content-center mt-4">
+    {% if movies.has_previous %}
+      <a class="btn btn-outline-primary" href="?page=1">First</a>
+      <a class="btn btn-outline-primary" href="?page={{ movies.previous_page_number }}">Previous</a>
+    {% endif %}
+    <span class="btn btn-primary disabled">Page {{ movies.number }} of {{ movies.paginator.num_pages }}</span>
+    {% if movies.has_next %}
+      <a class="btn btn-outline-primary" href="?page={{ movies.next_page_number }}">Next</a>
+      <a class="btn btn-outline-primary" href="?page={{ movies.paginator.num_pages }}">Last</a>
+    {% endif %}
   </div>
 </div>
 
-<!-- Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<!-- Font Awesome -->
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-/>
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
 
 <style>
   .card {
@@ -82,43 +80,8 @@
     transform: translateY(-5px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
   }
+  .pagination .btn {
+    margin: 5px;
+  }
 </style>
-
-<script>
-  $(document).ready(function () {
-    // Add animation to cards on hover
-    $(".card").hover(
-      function () {
-        $(this).addClass("shadow");
-      },
-      function () {
-        $(this).removeClass("shadow");
-      }
-    );
-
-    // Implement client-side filtering
-    $('input[name="search"]').on("input", function () {
-      var searchTerm = $(this).val().toLowerCase();
-      $("#movieList .col-md-4").each(function () {
-        var movieTitle = $(this).find(".card-title").text().toLowerCase();
-        if (movieTitle.includes(searchTerm)) {
-          $(this).show();
-        } else {
-          $(this).hide();
-        }
-      });
-    });
-  });
-</script>
-<!-- <h1>Movies</h1>
-<ul>
-    {% for movie in movies%}
-    <li>
-        <img src="{{movie.image.url}}" alt="image" >
-        <strong>{{movie.name}}</strong>{{movie.rating}}
-        <p>Cast:{{movie.cast}}</p>
-        <a href="{% url 'theater_list' movie.id %}">View Theaters</a>
-    </li>
-    {% endfor %}
-</ul> -->
 {% endblock %}
